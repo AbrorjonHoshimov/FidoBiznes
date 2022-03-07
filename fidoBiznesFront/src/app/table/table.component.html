@@ -1,0 +1,143 @@
+<div class="wrapper">
+  <div class="header">
+    <div style="margin-bottom: 20px">
+      <button mat-raised-button (click)="toForm()" class="btn" matTooltip="{{'TABLE.button'|translate }}"
+              matTooltipShowDelay="400"
+              matTooltipHideDelay="400">
+        <mat-icon>add_circle</mat-icon>
+        {{'TABLE.button'|translate }}    </button>
+    </div>
+    <div>
+      <select class="select" (change)="changeLang(lang)" #lang matTooltip="{{'LOGIN.lang'|translate }}"
+              matTooltipShowDelay="400"
+              matTooltipHideDelay="400">
+        <option value="en" [selected]="language=='en'">English</option>
+        <option value="ru" [selected]="language=='ru'">Русский</option>
+        <option value="uz" [selected]="language=='uz'">O'zbekcha</option>
+      </select>
+    </div>
+    <div>
+      <button class="btn" mat-raised-button (click)="openFilter()" matTooltip="{{'FILTER.filter'|translate }}"
+              matTooltipShowDelay="400"
+              matTooltipHideDelay="400">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button class="btn" mat-raised-button (click)="refresh()" matTooltip="{{'TABLE.refresh'|translate }}"
+              matTooltipShowDelay="400"
+              matTooltipHideDelay="400">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+
+
+  </div>
+  <div class="container">
+    <div class="table">
+      <div class="table-header">
+        <div></div>
+        <div class=" headNum">#</div>
+        <div class="headNum">{{'TABLE.file'|translate }}</div>
+        <div class="header__item">{{'TABLE.regnum'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="change()" style="color: {{regNumUpColor}}">arrow_drop_up</mat-icon>
+            <mat-icon class="down_icon" style="color: {{regNumDownColor}}" (click)="change()">arrow_drop_down</mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.regDate'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="regDateSort()" style="color: {{regDateUpColor}}">arrow_drop_up</mat-icon>
+            <mat-icon class="down_icon" (click)="regDateSort()" style="color: {{regDateDownColor}}">arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.sendDoc'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="sendDocSort()" style="color:{{sendNumUpColor}}">arrow_drop_up</mat-icon>
+            <mat-icon class="down_icon" (click)="sendDocSort()" style="color: {{sendNumDownColor}}">arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.sendDate'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="sendDateSort()" style="color:{{sendDateUpColor}}">arrow_drop_up
+            </mat-icon>
+            <mat-icon class="down_icon" (click)="sendDateSort()" style="color: {{sendDateDownColor}}">arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.delivery_type'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="deliverySort()" style="color: {{deliveryUpColor}}">arrow_drop_up
+            </mat-icon>
+            <mat-icon class="down_icon" (click)="deliverySort()" style="color: {{deliveryDownColor}}">arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.correspondent'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="corresSort()" style="color: {{correspondentUpColor}}">arrow_drop_up
+            </mat-icon>
+            <mat-icon class="down_icon" (click)="corresSort()" style="color: {{correspondentDownColor}}">
+              arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.theme'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="themeSort()" style="color: {{themeUpColor}}">arrow_drop_up</mat-icon>
+            <mat-icon class="down_icon" (click)="themeSort()" style="color: {{themeDownColor}}">arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.description'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="descriptionSort()" style="color: {{descriptionUpColor}}">arrow_drop_up
+            </mat-icon>
+            <mat-icon class="down_icon" (click)="descriptionSort()" style="color: {{descriptionDownColor}}">
+              arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.due'|translate }}
+          <div class="tableIconDiv">
+            <mat-icon class="up_icon" (click)="expireSort()" style="color: {{expireUpColor}}">arrow_drop_up</mat-icon>
+            <mat-icon class="down_icon" (click)="expireSort()" style="color: {{expireDownColor}}">arrow_drop_down
+            </mat-icon>
+          </div>
+        </div>
+        <div class="header__item">{{'TABLE.operations'|translate }}</div>
+      </div>
+      <div class="table-content">
+        <div *ngFor="let form of form_docs   let i = index" class="table-row">
+          <div class="num">{{i + 1}}</div>
+          <div class="num"><a *ngIf="form.attachmentId!=0" target="_blank"
+                              href="http://52.90.175.233:80/attachment/download/{{form.attachmentId}}">
+            <mat-icon> attach_file</mat-icon>
+          </a></div>
+          <div class="table-data" contenteditable="true">{{form.regNum}}</div>
+          <div class="table-data" contenteditable="true">{{form.regDate |date:"dd.MM.yyyy"}}</div>
+          <div class="table-data" contenteditable="true">{{form.sendDocNum}}</div>
+          <div class="table-data" contenteditable="true">{{form.sendDate | date:"dd.MM.yyyy"}}</div>
+          <div class="table-data" contenteditable="true">{{form.deliveryType}}</div>
+          <div class="table-data" contenteditable="true">{{form.senderName}}</div>
+          <div class="table-data" contenteditable="true">{{form.theme}}</div>
+          <div class="table-data" contenteditable="true">{{form.someReference}}</div>
+          <div class="table-data" contenteditable="true">{{form.expireDate | date:"dd.MM.yyyy"}}</div>
+          <div class="table-data">
+            <mat-icon style="margin-right: 10px" (click)="edit(form.id)" matTooltip="{{'TABLE.edit'|translate }}"
+                      matTooltipShowDelay="400"
+                      matTooltipHideDelay="400"
+            >create
+            </mat-icon>
+            <mat-icon (click)="delete(form.id)" matTooltip="{{'TABLE.delete'|translate }}"
+                      matTooltipShowDelay="400"
+                      matTooltipHideDelay="400">delete
+            </mat-icon>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

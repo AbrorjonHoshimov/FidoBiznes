@@ -1,0 +1,71 @@
+<form [formGroup]="myForm" class="wrapper">
+  <mat-card class="card">
+    <div class="forInputDiv">
+      <p class="label">{{'TABLE.regnum'|translate }}</p>
+      <input formControlName="regNumber" type="text" class="input" #regNum>
+    </div>
+  </mat-card>
+
+  <mat-card class="card">
+    <div class="date">
+      <p class="label">{{'TABLE.regDate'|translate }}  </p>
+      <input type="date" class="input" #regDateStart>
+      <span>{{'FILTER.from'| translate}}</span>
+      <input type="date" class="input" #regDateEnd>
+    </div>
+  </mat-card>
+
+  <mat-card class="card">
+    <div class="forInputDiv">
+      <p class="label">{{'TABLE.theme'|translate }}</p>
+      <input formControlName="theme" type="text" class="theme" #theme>
+    </div>
+  </mat-card>
+
+  <mat-card class="card">
+    <div class="date">
+      <label>{{'TABLE.sendDate'|translate }} </label>
+      <input type="date" class="input" #sendDateStart>
+      <span>{{'FILTER.from'| translate}}</span>
+      <input type="date" class="input" #sendDateEnd>
+    </div>
+  </mat-card>
+
+  <mat-card class="card">
+    <div class="forInputDiv">
+      <p class="label">{{'TABLE.sendDoc'|translate }}</p>
+      <input formControlName="sendNumber" type="text" class="input" #sendNum>
+    </div>
+  </mat-card>
+  <mat-card class="card">
+    <div class="forInputDiv">
+      <p class="label">{{'TABLE.delivery_type'|translate }}</p>
+      <select name="" id="" class="input" #delivery>
+        <option value="">{{'FILTER.selected'|translate}}</option>
+        <option *ngFor="let delivery of delivery_types" value="{{delivery.id}}">{{delivery.name}}</option>
+      </select>
+    </div>
+  </mat-card>
+  <mat-card class="card">
+    <div class="forInputDiv">
+      <p class="label">{{'TABLE.description'|translate }} </p>
+      <textarea formControlName="descrip"  maxlength="1000" #description></textarea>
+    </div>
+  </mat-card>
+
+  <mat-card class="card">
+    <div class="forInputDiv">
+      <p class="label">{{'TABLE.correspondent'|translate }} </p>
+      <select name="" class="input" #sender>
+        <option value="">{{'FILTER.selected'|translate}}</option>
+        <option *ngFor="let doc of doc_senders" value="{{doc.id}}">{{doc.name}}</option>
+      </select>
+    </div>
+  </mat-card>
+
+  <button mat-raised-button color="primary" class="btn"
+          (click)="filterServer(regNum,regDateStart,regDateEnd,sendNum,sendDateStart,sendDateEnd,sender,theme,description,delivery)">
+    {{'FILTER.filter'|translate}}
+  </button>
+</form>
+

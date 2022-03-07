@@ -1,0 +1,188 @@
+
+.wrapper{
+  height: 100vh;
+  padding: 10px;
+  margin: 0;
+  box-sizing: border-box;
+  background: #f2f3f3;
+}
+.title{
+  text-align: center;align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.card{
+  margin-top: 20px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+.grid-containerSecondCard{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.input{
+  width: 100%;
+  border: 0.3px solid #cce7e7;
+  border-radius: 5px;
+  padding: 3px;
+}
+.input:focus{
+  outline: none;
+}
+.label{
+  margin-bottom: 1px;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.starIcon{
+  color: red;
+  margin-left: 2px;
+}
+.switch{
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
+  width: 55px;
+  height: 25px;
+  border: 1px solid gray;
+  border-radius: 30px;
+  padding: 3px 30px 3px 3px;
+  cursor: pointer;
+  transition: 0.5s linear;
+
+}
+#switch{
+  display: none;
+}
+#switch[type=checkbox]:checked + .switch{
+  transition: 0.5s linear;
+  padding: 3px 3px 3px 30px;
+  background: blue;
+
+}
+#switch2{
+  display: none;
+}
+#switch2[type=checkbox]:checked + .switch{
+  transition: 0.5s linear;
+  padding: 3px 3px 3px 30px;
+  background: blue;
+
+}
+.switch span{
+  display: flex;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: lightskyblue;
+}
+.chekbox{
+  width: 10%;
+  margin-top: 3px;
+}
+.textArea{
+  width: 100%;
+  height: 50px;
+  margin-top: 1%;
+  border-radius: 5px;
+  border: 0.3px solid #cce7e7;
+}
+.textArea:focus{
+  outline: none;
+}
+input[type="file"]{
+  display: none;
+}
+.forFileLabel{
+  padding:0 65px;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  height: 30px;
+  width: 250px;
+  background: lightskyblue;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+.forFileDiv{
+  height: 20%;
+  display: flex;
+  justify-content: center;
+
+}
+.btn{
+  background: lightskyblue;
+  margin-right: 5px;
+  color: #5e6a6a;
+}
+.text-danger{
+  color: red;
+  font-size: 10px;
+}
+.datePickerExpire{
+  width: 100%;
+  height: 25px;
+  border: 0.3px solid #cce7e7;
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+}
+.datePickerinput{
+  border: none;
+  width: 80%;
+  position: absolute;
+  top: 5px
+
+}
+.datePickerinput:focus{
+  outline: none;
+}
+.datePickerSend{
+  width: 100%;
+  height: 25px;
+  border: 0.3px solid #cce7e7;
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+}
+.dateIcon{
+  position: absolute;
+  right: 0;
+  top: -8px ;
+}
+.sendDatePicker{
+  width: 100%;
+}
+
+.checkboxDivCard{
+  display: flex;
+  gap: 60px;
+}
+
+@media screen and (max-width: 606px) {
+  .grid-container {
+    grid-template-columns:1fr 1fr;
+
+  }
+}
+@media screen and (max-width: 888px) {
+  .checkboxDivCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+@media screen and (max-width: 338px) {
+  .checkboxDivCard{
+    display: grid;
+    grid-template-columns: 1fr
+  }
+
+}

@@ -1,0 +1,58 @@
+{
+  "LOGIN":{
+    "title": "Login Here",
+    "login":"Log In",
+    "username": "username",
+    "password": "password",
+    "welcome": "welcome",
+    "lang": "Select Language"
+  },
+  "TABLE": {
+    "n": "N=",
+    "regnum": "Reg.№",
+    "regDate": "Reg.Date",
+    "sendDoc": "Send.Doc.Num",
+    "sendDate": "Send.Doc.Date",
+    "delivery_type": "Delivery type",
+    "correspondent": "Correspondent",
+    "theme": "Theme",
+    "description": "Description",
+    "due": "Due date",
+    "access": "Access",
+    "control": "Control",
+    "file": "file",
+    "operations": "operations",
+    "button": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "refresh": "Refresh"
+  },
+  "FORM": {
+    "header": "Adding / Changing",
+    "regnum": "Reg.№",
+    "regDate": "Registration date",
+    "sendDoc": "Send.doc.№",
+    "sendDate": "Send.doc.date",
+    "delivery_type": "Delivery_type",
+    "correspondent": "Correspondent",
+    "theme": "Theme",
+    "access": "public",
+    "control": "Card control",
+    "due": "Due date",
+    "description": "Description",
+    "file": "File",
+    "save": "Save",
+    "back": "Back"
+  },
+  "DIO": {
+    "header":"Delete",
+    "text":"You want delete",
+    "yess": "Yes",
+    "noo": "No"
+  },
+  "FILTER": {
+    "from": "from",
+    "selected": "not selected",
+    "filter": "Filter"
+  }
+}

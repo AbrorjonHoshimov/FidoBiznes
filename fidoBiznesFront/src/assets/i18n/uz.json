@@ -1,0 +1,59 @@
+{
+  "LOGIN":{
+    "title":"Avtorizatsiya",
+    "login": "Kirish",
+    "username": "username",
+    "password": "parol",
+    "welcome": "Xush kelibsiz",
+    "lang": "Tilni tanlash"
+  },
+  "TABLE": {
+    "n": "N=",
+    "regnum": "Huj.Raqam",
+    "regDate": "Huj.Sanasi",
+    "sendDoc": "Huj.Jo'n.Raqam",
+    "sendDate": "Huj.Jo'n.Sanasi",
+    "delivery_type": "Jo'natish turi",
+    "correspondent": "Korrespondent",
+    "theme": "Mavzu",
+    "description": "Izoh",
+    "due": "Muddati",
+    "access": "Ommaviy",
+    "control": "Nazorat kartochka",
+    "file": "Fayl",
+    "operations": "Operatsiyalar",
+    "button": "Qo'shish",
+    "edit": "O'zgartirish",
+    "delete": "O'chirish",
+    "refresh": "Yangilash"
+  },
+  "FORM": {
+    "header": "Qo'shish / O'zgartish",
+    "regnum": "Ro'y.№",
+    "regDate": "Ro'y.sanasi",
+    "sendDoc": "Huj.jo'n.№",
+    "sendDate": "Huj.jo'n.sanasi",
+    "delivery_type": "Jo'natish turi",
+    "correspondent": "Korrespondent",
+    "theme": "Mavzu",
+    "access": "Ommaviy",
+    "control": "Nazorat kartochka",
+    "file": "Fayl",
+    "due": "Muddati",
+    "description": "Izoh",
+    "save": "Saqlash",
+    "back": "Orqaga"
+  },
+  "DIO":{
+  "header":"O'chirish",
+  "text":"O'chirishni xoxlaysizmi",
+  "yess": "Ha",
+  "noo": "Yo'q"
+},
+  "FILTER": {
+    "from": "Dan",
+    "selected": "Belgilanmagan",
+    "filter": "Filter"
+  }
+
+}
