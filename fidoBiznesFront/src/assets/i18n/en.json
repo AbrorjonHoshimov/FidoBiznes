@@ -25,7 +25,15 @@
     "button": "Add",
     "edit": "Edit",
     "delete": "Delete",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "exit": "Exit",
+    "report": "Reports",
+    "reportTitleOne": "Documents received from the Central Bank",
+    "reportTitleTwo": "Documents obtained for a quarter",
+    "reportTitleThree": "Documents received for the last month",
+    "close": "Close",
+    "print": "Print"
+
   },
   "FORM": {
     "header": "Adding / Changing",

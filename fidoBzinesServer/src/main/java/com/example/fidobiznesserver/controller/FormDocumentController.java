@@ -107,6 +107,11 @@ public class FormDocumentController {
         List<FormDocInfo> filter = formDocumentRepository.filter(filterDto);
         return ResponseEntity.ok(filter);
     }
+    @GetMapping("/cbGmail/{id}")
+    public HttpEntity<?> cbGmail(@PathVariable int id){
+        List<FormDocInfo> formDocInfos = formDocumentRepository.cbGmail(id);
+        return ResponseEntity.ok(formDocInfos);
+    }
 
 }
 

@@ -32,16 +32,17 @@ export class FormDocumentComponent implements OnInit {
   attachmentId: any
   delivery_types: any;
   doc_senders: any;
-  date = new Date()
-  inpDate = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear()
   today = new Date();
   dd = String(this.today.getDate()).padStart(2, '0');
   mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
   yyyy = this.today.getFullYear();
   todayIs = this.yyyy + '-' + this.mm + '-' + this.dd;
+  todayInput = this.dd+'/'+this.mm + '/' + this.yyyy;
   formDocument = new Form_Document
   filename = ''
   showFileName = false;
+  form_docs:any
+  existRegNum=0
 
   constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private tranlateService: TranslateService) {
     this.tranlateService.setDefaultLang(localStorage.getItem('lang') || 'en');
@@ -51,8 +52,10 @@ export class FormDocumentComponent implements OnInit {
   myForm!: FormGroup
 
   ngOnInit(): void {
+
     this.getDocSenderList()
     this.getDeliveryTypeList()
+    this.getAllFormDoc()
     this.myForm = new FormGroup({
       'regNumber': new FormControl(null, [Validators.required, removeSpaces]),
       'sendNumber': new FormControl(null, [Validators.required, removeSpaces]),
@@ -77,7 +80,12 @@ export class FormDocumentComponent implements OnInit {
     })
   }
 
+  getAllFormDoc() {
+    this.http.get("http://52.90.175.233:80/api/form/list").subscribe(response => {
+      this.form_docs = response;
 
+    })
+  }
   goToTable() {
     this.router.navigate(['/table'])
     this.toastr.success("Orqaga qaytish")
@@ -124,55 +132,53 @@ export class FormDocumentComponent implements OnInit {
 
   add(regNum: HTMLInputElement, theme: HTMLInputElement, sendNum: HTMLInputElement, sendDate: HTMLInputElement, expireDate: HTMLInputElement, deliveryId: HTMLSelectElement, description: HTMLTextAreaElement, senderId: HTMLSelectElement, control: HTMLInputElement, acces: HTMLInputElement) {
 
-    if (expireDate.value.length == 0) {
-      this.formDocument.expireDate = expireDate.value
-    } else {
-      this.formDocument.expireDate = dateParse(expireDate.value)
-    }
-    let send = dateParse(sendDate.value)
-
-
-    console.log(expireDate.value)
-    if (send <= this.todayIs) {
-      this.toastr.error("Send date error")
-    } else {
-
-
-      this.formDocument.access = acces.checked,
-        this.formDocument.cardControl = control.checked,
-        this.formDocument.deliveryTypeId = deliveryId.value
-      this.formDocument.docSenderId = senderId.value
-      this.formDocument.theme = theme.value
-      this.formDocument.someReference = description.value
-      this.formDocument.regNum = regNum.value
-      if (this.attachmentId != null) {
-        this.formDocument.attchmentId = this.attachmentId
-      } else {
-        this.formDocument.attchmentId = 0
+    for (let i = 0; i < this.form_docs.length; i++) {
+      if (this.form_docs[i].regNum===regNum.value){
+        this.existRegNum++
       }
-      this.formDocument.sendDocNum = sendNum.value
-      this.formDocument.regDate = this.todayIs
-      this.formDocument.sendDate = send
-
-      this.http.post("http://52.90.175.233:80/api/form/add", this.formDocument).subscribe((response: any) => {
-        this.toastr.success(response.message)
-        acces.checked = false
-        control.checked = false
-        sendDate.value = ''
-        expireDate.value = ''
-        description.value = ''
-        theme.value = ''
-        regNum.value = ''
-        sendNum.value = ''
-        deliveryId.value = '';
-        senderId.value = '';
-
-      }, error => {
-        this.toastr.error(error.message)
-      })
     }
 
+    if (this.existRegNum<=0){
 
+        if (expireDate.value.length == 0) {
+          this.formDocument.expireDate = expireDate.value
+        } else {
+          this.formDocument.expireDate = dateParse(expireDate.value)
+        }
+        let send = dateParse(sendDate.value)
+
+
+        console.log(expireDate.value)
+        if (this.todayIs >= send ) { this.formDocument.access = acces.checked,
+          this.formDocument.cardControl = control.checked,
+          this.formDocument.deliveryTypeId = deliveryId.value
+          this.formDocument.docSenderId = senderId.value
+          this.formDocument.theme = theme.value
+          this.formDocument.someReference = description.value
+          this.formDocument.regNum = regNum.value
+          if (this.attachmentId != null) {
+            this.formDocument.attchmentId = this.attachmentId
+          } else {
+            this.formDocument.attchmentId = 0
+          }
+          this.formDocument.sendDocNum = sendNum.value
+          this.formDocument.regDate = this.todayIs
+          this.formDocument.sendDate = send
+
+          this.http.post("http://localhost:80/api/form/add", this.formDocument).subscribe((response: any) => {
+            this.toastr.success(response.message)
+
+          }, error => {
+            this.toastr.error(error.message)
+          })
+        } else {
+          this.toastr.error("Send date error")
+        }
+
+    }else {
+      this.toastr.error("Register number already exist")
+      this.existRegNum=0
+    }
   }
 
 }

@@ -25,7 +25,14 @@
     "button": "Qo'shish",
     "edit": "O'zgartirish",
     "delete": "O'chirish",
-    "refresh": "Yangilash"
+    "refresh": "Yangilash",
+    "exit": "Chiqish",
+    "report": "Hisobotlar",
+    "reportTitleOne": "Markaziy bankdan qabul qilingan hujjatlar",
+    "reportTitleTwo": "Bir Kvartal boyicha olingan hujjatlar",
+    "reportTitleThree": "Oxirgi oy bo'yicha olingan hujjatlar",
+    "close": "Qaytish",
+    "print": "Pechat"
   },
   "FORM": {
     "header": "Qo'shish / O'zgartish",

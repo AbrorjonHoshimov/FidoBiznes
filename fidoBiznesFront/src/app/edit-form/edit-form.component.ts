@@ -18,13 +18,12 @@ export class EditFormComponent implements OnInit {
   attachmentId: any
   delivery_types: any;
   doc_senders: any;
-  date = new Date()
-  inpDate = this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear()
   today = new Date();
   dd = String(this.today.getDate()).padStart(2, '0');
   mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
   yyyy = this.today.getFullYear();
   todayIs = this.yyyy + '-' + this.mm + '-' + this.dd;
+  todayInput = this.dd+'/'+this.mm + '/' + this.yyyy;
   id!: number
   formDoc: any
   formDocument = new Form_Document()

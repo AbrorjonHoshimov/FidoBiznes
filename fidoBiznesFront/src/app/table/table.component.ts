@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild,HostListener } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {HttpClient} from "@angular/common/http";
@@ -94,9 +94,15 @@ export class TableComponent implements OnInit {
   expireUpColor:String = "white";
   expireDownColor:String = "white";
 
+  clicedRow:any;
+  highlightRow!:number
+
   constructor(private http: HttpClient, private tranlateService: TranslateService, private toastr: ToastrService, private router: Router, private dialog: MatDialog) {
     this.tranlateService.setDefaultLang(localStorage.getItem('lang') || 'en');
     this.tranlateService.use(localStorage.getItem('lang') || 'en')
+    this.clicedRow=function (index:number){
+      this.highlightRow=index
+    }
   }
 
 
@@ -326,6 +332,30 @@ export class TableComponent implements OnInit {
     this.expireDownColor='white'
     this.expireUpColor='white'
 
+  }
+
+  exitInSystem() {
+    if (confirm("Do you want to log out?")){
+      this.router.navigate(['/'])
+    }
+  }
+
+  arrowDownEvent(i:number) {
+      let nextRow=this.highlightRow+1;
+      this.clicedRow(nextRow)
+
+  }
+
+  arrowUpEvent(i:number) {
+    let nextRow=this.highlightRow-1;
+    this.clicedRow(nextRow)
+  }
+
+  reports(report: HTMLSelectElement) {
+    console.log(report.value)
+    if (report.value=='1'||report.value=='2'||report.value==='3'){
+      this.router.navigate(['/report/'+report.value])
+    }
   }
 }
 

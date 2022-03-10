@@ -5,7 +5,7 @@
               matTooltipShowDelay="400"
               matTooltipHideDelay="400">
         <mat-icon>add_circle</mat-icon>
-        {{'TABLE.button'|translate }}    </button>
+        {{'TABLE.button'|translate }}</button>
     </div>
     <div>
       <select class="select" (change)="changeLang(lang)" #lang matTooltip="{{'LOGIN.lang'|translate }}"
@@ -16,6 +16,21 @@
         <option value="uz" [selected]="language=='uz'">O'zbekcha</option>
       </select>
     </div>
+    <div style="display: flex;gap: 15px">
+      <p style="font-weight: bold">{{'TABLE.report'|translate}} </p>
+
+      <select class="report"  matTooltip="{{'TABLE.report'|translate }}" (change)="reports(report)" #report
+              matTooltipShowDelay="400"
+              matTooltipHideDelay="400">
+        <option>{{'FILTER.selected'|translate }}</option>
+        <option value=1>{{'TABLE.reportTitleOne'|translate }}</option>
+        <option value=2>{{'TABLE.reportTitleTwo'|translate }}</option>
+        <option value=3>{{'TABLE.reportTitleThree'|translate }}</option>
+      </select>
+    </div>
+
+
+
     <div>
       <button class="btn" mat-raised-button (click)="openFilter()" matTooltip="{{'FILTER.filter'|translate }}"
               matTooltipShowDelay="400"
@@ -26,6 +41,11 @@
               matTooltipShowDelay="400"
               matTooltipHideDelay="400">
         <mat-icon>refresh</mat-icon>
+      </button>
+      <button class="btn" mat-raised-button (click)="exitInSystem()" matTooltip="{{'TABLE.exit'|translate }}"
+              matTooltipShowDelay="400"
+              matTooltipHideDelay="400">
+        <mat-icon>settings_power</mat-icon>
       </button>
     </div>
 
@@ -108,21 +128,30 @@
         <div class="header__item">{{'TABLE.operations'|translate }}</div>
       </div>
       <div class="table-content">
-        <div *ngFor="let form of form_docs   let i = index" class="table-row">
+        <div *ngFor="let form of form_docs   let i = index" class="table-row"
+             [class.activeRow]="i==highlightRow"
+             tabindex="999"
+             (keydown.arrowdown)="arrowDownEvent(i)"
+             (keydown.arrowUp)="arrowUpEvent(i)"
+             (click)="clicedRow(i)"
+        >
           <div class="num">{{i + 1}}</div>
           <div class="num"><a *ngIf="form.attachmentId!=0" target="_blank"
                               href="http://52.90.175.233:80/attachment/download/{{form.attachmentId}}">
-            <mat-icon> attach_file</mat-icon>
+            <mat-icon matTooltip="{{'FORM.file'|translate }}"
+                      matTooltipShowDelay="400"
+                      matTooltipHideDelay="400"> attach_file
+            </mat-icon>
           </a></div>
-          <div class="table-data" contenteditable="true">{{form.regNum}}</div>
-          <div class="table-data" contenteditable="true">{{form.regDate |date:"dd.MM.yyyy"}}</div>
-          <div class="table-data" contenteditable="true">{{form.sendDocNum}}</div>
-          <div class="table-data" contenteditable="true">{{form.sendDate | date:"dd.MM.yyyy"}}</div>
-          <div class="table-data" contenteditable="true">{{form.deliveryType}}</div>
-          <div class="table-data" contenteditable="true">{{form.senderName}}</div>
-          <div class="table-data" contenteditable="true">{{form.theme}}</div>
-          <div class="table-data" contenteditable="true">{{form.someReference}}</div>
-          <div class="table-data" contenteditable="true">{{form.expireDate | date:"dd.MM.yyyy"}}</div>
+          <div class="table-data">{{form.regNum}}</div>
+          <div class="table-data">{{form.regDate |date:"dd.MM.yyyy"}}</div>
+          <div class="table-data">{{form.sendDocNum}}</div>
+          <div class="table-data">{{form.sendDate | date:"dd.MM.yyyy"}}</div>
+          <div class="table-data">{{form.deliveryType}}</div>
+          <div class="table-data">{{form.senderName}}</div>
+          <div class="table-data">{{form.theme}}</div>
+          <div class="table-data">{{form.someReference}}</div>
+          <div class="table-data">{{form.expireDate | date:"dd.MM.yyyy"}}</div>
           <div class="table-data">
             <mat-icon style="margin-right: 10px" (click)="edit(form.id)" matTooltip="{{'TABLE.edit'|translate }}"
                       matTooltipShowDelay="400"

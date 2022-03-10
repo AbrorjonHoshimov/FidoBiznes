@@ -26,12 +26,14 @@ import {MomentDateModule} from "@angular/material-moment-adapter";
 import {MatInputModule} from "@angular/material/input";
 import { FilterComponent } from './filter/filter.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   {path: '', component: LoginPageComponent},
   {path:'table',component:TableComponent},
   {path: 'form', component: FormDocumentComponent},
   {path: 'form/:id', component: EditFormComponent},
+  {path: 'report/:id', component: ReportComponent},
 ];
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginPageComponent,
     DialogComponent,
     FilterComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

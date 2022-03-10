@@ -21,7 +21,7 @@
         </div>
         <div class="inputDiv">
           <p class="label">{{'FORM.regDate'| translate}}<span class="starIcon">*</span></p>
-          <input type="text" class="input" required [value]="inpDate">
+          <input type="text" class="input" required [value]="todayInput">
         </div>
 
         <div class="inputDiv">
@@ -54,6 +54,11 @@
 
     <mat-card class="card">
       <div class="checkboxDivCard">
+
+        <div style="width: 100%">
+          <p class="label">{{'FORM.theme'| translate}}<span class="starIcon">*</span></p>
+          <input type="text" class="input" value="{{formDoc.theme}}" maxlength="100" required #theme>
+        </div>
         <div>
           <p class="label">{{'FORM.access'| translate}}</p>
           <div class="chekbox">
@@ -63,7 +68,6 @@
             </label>
           </div>
         </div>
-
         <div style="width: 100%">
           <p class="label">{{'FORM.due'| translate}}</p>
           <div class="datePickerExpire">
@@ -72,7 +76,7 @@
             <mat-datepicker #expire></mat-datepicker>
           </div>
         </div>
-        <div style="width: 20%">
+        <div style="width: 40%">
           <p class="label">{{'FORM.control'| translate}}</p>
           <div class="chekbox">
             <input type="checkbox" id="switch2" value="{{formDoc.control}}" class="input" #control/>
@@ -81,10 +85,7 @@
             </label>
           </div>
         </div>
-        <div style="width: 100%">
-          <p class="label">{{'FORM.theme'| translate}}<span class="starIcon">*</span></p>
-          <input type="text" class="input" value="{{formDoc.theme}}" maxlength="100" required #theme>
-        </div>
+
 
       </div>
       <div style="margin-top: 1%">

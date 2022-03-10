@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.awt.print.Pageable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -257,8 +258,6 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
     }
 
 
-
-
     public List<FormDocInfo> filter(FilterDto filterDto){
 
         if (filterDto!=null) {
@@ -332,4 +331,31 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
         return list();
     }
 
+
+    public List<FormDocInfo> cbGmail(int id){
+        if (id==1){
+            LocalDate todaydate = LocalDate.now();
+            LocalDate date = todaydate.withDayOfMonth(1);
+            String between = query + " where doc_sender_id=1 and delivery_type_id=6 and reg_date between  \'"+ date + "\' AND \'"+ todaydate +"\'" ;
+            return jdbcTemplate.query(between, rowMapper);
+        }
+       else if(id==2){
+            LocalDate todaydate = LocalDate.now();
+            int year = todaydate.getYear();
+            String between = query+" where (doc_sender_id!=2 or delivery_type_id!=8) and  reg_date BETWEEN \'"+ year + "-01-01\' AND \'"+ year +"-03-31\'" ;
+            return jdbcTemplate.query(between,rowMapper);
+        }else {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, -1);
+
+            int date = calendar.getActualMaximum(Calendar.DATE);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+
+            String between = query+ " where (doc_sender_id=3 and  theme not ilike '%kredit%') and  reg_date  BETWEEN \'"+ year + "-"+month+"-01\' AND \'"+ year +"-"+month+"-"+date+"\'" ;
+            return jdbcTemplate.query(between, rowMapper);
+
+        }
+
+    }
 }

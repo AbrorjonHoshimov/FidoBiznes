@@ -59,19 +59,20 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   padding: 18px 0;
 }
-.table-row:hover{
-  background: #bed5d5;
-  /*border: 0.5px solid black;*/
+.table-row:focus{
+  outline: none;
 }
+/*.table-row:hover{*/
+/*  background: #EEEEEE;*/
+/*}*/
 
-.table-row:nth-of-type(odd) {
-  background: #EEEEEE;
+/*.table-row:nth-of-type(odd) {*/
+/*  background: #EEEEEE;*/
 
-}
-.table-row:nth-of-type(odd):hover {
-  background: #bed5d5;
-  /*border: 0.5px solid black;*/
-}
+/*}*/
+/*.table-row:nth-of-type(odd):focus {*/
+/*  background: #bed5d5;*/
+/*}*/
 
 .table-data, .header__item {
   flex: 1 1 2%;
@@ -81,9 +82,11 @@ h1, h2, h3, h4, h5, h6 {
 .header__item {
   font-size: 12px;
   position: relative;
-
-
 }
+.activeRow{
+  background: #bed5d5;
+}
+
 
 /*.filter__link {*/
 /*  color: white;*/
@@ -103,8 +106,6 @@ h1, h2, h3, h4, h5, h6 {
 /*  top: 50%;*/
 /*  transform: translateY(-50%);*/
 /*}*/
-
-
 
 
 .headNum {
@@ -155,6 +156,25 @@ h1, h2, h3, h4, h5, h6 {
 .select:hover{
   cursor: pointer;
 }
+
+.report{
+  width: 300px;
+  height: 38px;
+  border: 0.3px solid #cce7e7;
+  border-radius: 5px;
+  padding: 3px;
+  font-weight: bold;
+}
+.report:focus{
+  outline: none;
+}
+.report:hover{
+  cursor: pointer;
+}
+
+
+
+
 .tableIconDiv{
   height: 18px;
   width: 18px;
