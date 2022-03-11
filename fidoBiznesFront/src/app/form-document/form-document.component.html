@@ -23,6 +23,7 @@
           <small *ngIf="myForm.get('regNumber')?.invalid&&myForm.get('regNumber')?.touched" class="text-danger">Please
             enter
             number </small>
+          <small *ngIf="isRegNumberExist">{{'FORM.isRegNumExist'| translate}} </small>
         </div>
         <div class="inputDiv">
           <p class="label">{{'FORM.regDate'| translate}}<span class="starIcon">*</span></p>
@@ -55,6 +56,7 @@
           </div>
           <small *ngIf="myForm.get('sendDate')?.invalid&&myForm.get('sendDate')?.touched" class="text-danger">Please
             enter date </small>
+          <small *ngIf="sendDateError" class="text-danger">{{'FORM.sendDateError'| translate}}</small>
         </div>
 
       </div>

@@ -43,6 +43,10 @@ export class FormDocumentComponent implements OnInit {
   showFileName = false;
   form_docs:any
   existRegNum=0
+  sendDateError=false;
+  isRegNumberExist=false;
+
+
 
   constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private tranlateService: TranslateService) {
     this.tranlateService.setDefaultLang(localStorage.getItem('lang') || 'en');
@@ -149,7 +153,8 @@ export class FormDocumentComponent implements OnInit {
 
 
         console.log(expireDate.value)
-        if (this.todayIs >= send ) { this.formDocument.access = acces.checked,
+        if (this.todayIs >= send ) {
+          this.formDocument.access = acces.checked,
           this.formDocument.cardControl = control.checked,
           this.formDocument.deliveryTypeId = deliveryId.value
           this.formDocument.docSenderId = senderId.value
@@ -164,7 +169,8 @@ export class FormDocumentComponent implements OnInit {
           this.formDocument.sendDocNum = sendNum.value
           this.formDocument.regDate = this.todayIs
           this.formDocument.sendDate = send
-
+          this.sendDateError=false;
+          this.isRegNumberExist=false;
           this.http.post("http://18.233.7.60:80/api/form/add", this.formDocument).subscribe((response: any) => {
             this.toastr.success(response.message)
             this.router.navigate(['/table'])
@@ -172,11 +178,10 @@ export class FormDocumentComponent implements OnInit {
             this.toastr.error(error.message)
           })
         } else {
-          this.toastr.error("Send date error")
+          this.sendDateError=true;
         }
-
     }else {
-      this.toastr.error("Register number already exist")
+     this.isRegNumberExist=true
       this.existRegNum=0
     }
   }
