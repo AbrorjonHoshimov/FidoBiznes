@@ -23,7 +23,7 @@ export class EditFormComponent implements OnInit {
   mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
   yyyy = this.today.getFullYear();
   todayIs = this.yyyy + '-' + this.mm + '-' + this.dd;
-  todayInput = this.dd+'/'+this.mm + '/' + this.yyyy;
+  todayInput = this.dd + '/' + this.mm + '/' + this.yyyy;
   id!: number
   formDoc: any
   formDocument = new Form_Document()
@@ -36,27 +36,27 @@ export class EditFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id=this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id'];
     this.getOneDocument(this.id);
     this.getDeliveryTypeList()
     this.getDocSenderList()
   }
 
   getDeliveryTypeList(): void {
-    this.http.get("http://52.90.175.233:80/api/del_type/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/del_type/list").subscribe(response => {
       this.delivery_types = response
       console.log(this.delivery_types)
     })
   }
 
   getDocSenderList(): void {
-    this.http.get("http://52.90.175.233:80/api/doc_sender/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/doc_sender/list").subscribe(response => {
       this.doc_senders = response
     })
   }
 
   getOneDocument(id: number) {
-    this.http.get("http://52.90.175.233:80/api/form/getOne/" + id).subscribe(respon => {
+    this.http.get("http://18.233.7.60:80/api/form/getOne/" + id).subscribe(respon => {
       this.formDoc = respon
     })
   }
@@ -64,9 +64,9 @@ export class EditFormComponent implements OnInit {
 
   edit(regNum: HTMLInputElement, theme: HTMLInputElement, sendNum: HTMLInputElement, sendDate: HTMLInputElement, expireDate: HTMLInputElement, deliveryId: HTMLSelectElement, description: HTMLTextAreaElement, senderId: HTMLSelectElement, control: HTMLInputElement, acces: HTMLInputElement) {
     let send = dateParse(sendDate.value)
-    if (expireDate.value.length<=0){
+    if (expireDate.value.length <= 0) {
       this.formDocument.expireDate = ' '
-    }else {
+    } else {
       let expire = dateParse(expireDate.value)
       this.formDocument.expireDate = expire
     }
@@ -78,13 +78,21 @@ export class EditFormComponent implements OnInit {
     this.formDocument.access = acces.checked
     this.formDocument.cardControl = control.checked
     this.formDocument.someReference = description.value
-    this.formDocument.deliveryTypeId = this.formDoc.deliveryTypeId
+    if (deliveryId.value.length===0){
+      this.formDocument.deliveryTypeId = this.formDoc.deliveryTypeId
+    }else {
+      this.formDocument.deliveryTypeId = deliveryId.value
+    }
     this.formDocument.attchmentId = this.formDoc.attchmentId
-    this.formDocument.docSenderId = this.formDoc.docSenderId
+    if (senderId.value.length===0){
+      this.formDocument.docSenderId = this.formDoc.docSenderId
+    }else {
+      this.formDocument.docSenderId=senderId.value
+    }
     this.formDocument.regDate = this.formDoc.regDate
 
 
-    this.http.put("http://52.90.175.233:80/api/form/" + this.id, this.formDocument).subscribe(response => {
+    this.http.put("http://18.233.7.60:80/api/form/" + this.id, this.formDocument).subscribe(response => {
       this.toastr.success("O'zgartirildi")
       this.router.navigate(['/table'])
     }, error => {

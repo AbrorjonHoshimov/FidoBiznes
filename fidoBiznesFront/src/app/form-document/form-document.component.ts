@@ -68,20 +68,20 @@ export class FormDocumentComponent implements OnInit {
   }
 
   getDeliveryTypeList(): void {
-    this.http.get("http://52.90.175.233:80/api/del_type/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/del_type/list").subscribe(response => {
       this.delivery_types = response
       console.log(this.delivery_types)
     })
   }
 
   getDocSenderList(): void {
-    this.http.get("http://52.90.175.233:80/api/doc_sender/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/doc_sender/list").subscribe(response => {
       this.doc_senders = response
     })
   }
 
   getAllFormDoc() {
-    this.http.get("http://52.90.175.233:80/api/form/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/form/list").subscribe(response => {
       this.form_docs = response;
 
     })
@@ -110,7 +110,7 @@ export class FormDocumentComponent implements OnInit {
 
 
         if (event.target.size < 1048576) {
-          this.http.post("http://52.90.175.233:80/attachment/uploadSytem", forFormData).subscribe(response => {
+          this.http.post("http://18.233.7.60:80/attachment/uploadSytem", forFormData).subscribe(response => {
             this.attachmentId = response
             console.log(response)
             this.toastr.success("yuklandi")
@@ -165,9 +165,9 @@ export class FormDocumentComponent implements OnInit {
           this.formDocument.regDate = this.todayIs
           this.formDocument.sendDate = send
 
-          this.http.post("http://localhost:80/api/form/add", this.formDocument).subscribe((response: any) => {
+          this.http.post("http://18.233.7.60:80/api/form/add", this.formDocument).subscribe((response: any) => {
             this.toastr.success(response.message)
-
+            this.router.navigate(['/table'])
           }, error => {
             this.toastr.error(error.message)
           })

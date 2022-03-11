@@ -16,4 +16,8 @@ export class AppComponent {
 
   title = 'fidoBiznesFront';
 
+
+  ssa() {
+    console.log("sas")
+  }
 }

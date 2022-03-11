@@ -19,7 +19,7 @@
     <div style="display: flex;gap: 15px">
       <p style="font-weight: bold">{{'TABLE.report'|translate}} </p>
 
-      <select class="report"  matTooltip="{{'TABLE.report'|translate }}" (change)="reports(report)" #report
+      <select class="report" matTooltip="{{'TABLE.report'|translate }}" (change)="reports(report)" #report
               matTooltipShowDelay="400"
               matTooltipHideDelay="400">
         <option>{{'FILTER.selected'|translate }}</option>
@@ -28,8 +28,6 @@
         <option value=3>{{'TABLE.reportTitleThree'|translate }}</option>
       </select>
     </div>
-
-
 
     <div>
       <button class="btn" mat-raised-button (click)="openFilter()" matTooltip="{{'FILTER.filter'|translate }}"
@@ -48,7 +46,6 @@
         <mat-icon>settings_power</mat-icon>
       </button>
     </div>
-
 
   </div>
   <div class="container">
@@ -128,16 +125,18 @@
         <div class="header__item">{{'TABLE.operations'|translate }}</div>
       </div>
       <div class="table-content">
-        <div *ngFor="let form of form_docs   let i = index" class="table-row"
-             [class.activeRow]="i==highlightRow"
-             tabindex="999"
-             (keydown.arrowdown)="arrowDownEvent(i)"
-             (keydown.arrowUp)="arrowUpEvent(i)"
-             (click)="clicedRow(i)"
+        <div
+          *ngFor="let form of form_docs  | paginate: { itemsPerPage: 5, currentPage: page,totalItems:totalLength} let i = index  "
+          class="table-row"
+          [class.activeRow]="i==highlightRow"
+          tabindex="999"
+          (keydown.arrowdown)="arrowDownEvent(i)"
+          (keydown.arrowUp)="arrowUpEvent(i)"
+          (click)="clicedRow(i)"
         >
           <div class="num">{{i + 1}}</div>
           <div class="num"><a *ngIf="form.attachmentId!=0" target="_blank"
-                              href="http://52.90.175.233:80/attachment/download/{{form.attachmentId}}">
+                              href="http://18.233.7.60:80/attachment/download/{{form.attachmentId}}">
             <mat-icon matTooltip="{{'FORM.file'|translate }}"
                       matTooltipShowDelay="400"
                       matTooltipHideDelay="400"> attach_file
@@ -168,5 +167,9 @@
 
       </div>
     </div>
+    <div class="paginationStyle">
+      <pagination-controls  (pageChange)="page = $event"></pagination-controls>
+    </div>
   </div>
+
 </div>

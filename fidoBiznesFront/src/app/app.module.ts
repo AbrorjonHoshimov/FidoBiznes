@@ -21,11 +21,12 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule} from "@angular/material/dialog";
 import { MatDatepickerModule} from "@angular/material/datepicker";
-import {MAT_DATE_FORMATS, MatNativeDateModule} from "@angular/material/core";
+import { MatNativeDateModule} from "@angular/material/core";
 import {MomentDateModule} from "@angular/material-moment-adapter";
 import {MatInputModule} from "@angular/material/input";
 import { FilterComponent } from './filter/filter.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {NgxPaginationModule} from 'ngx-pagination';
 import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MomentDateModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -85,7 +87,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     HttpClient,
-
   ],
   bootstrap: [AppComponent]
 })

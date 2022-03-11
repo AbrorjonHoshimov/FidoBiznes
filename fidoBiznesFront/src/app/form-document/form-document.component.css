@@ -28,8 +28,9 @@
   width: 100%;
   border: 0.3px solid #cce7e7;
   border-radius: 5px;
-  padding: 3px;
+  padding: 3px 9px;
 }
+
 .input:focus{
   outline: none;
 }

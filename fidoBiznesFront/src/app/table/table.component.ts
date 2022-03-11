@@ -35,10 +35,12 @@ export class TableComponent implements OnInit {
   language: String = ''
   form_docs: any
   offset: number = 0;
-  allFormDoc: any
   disabled = false
   showButton = true
   showSecondBut = true
+
+  totalLength!:number
+  page:number=1
 
   up = true
   down = false
@@ -113,9 +115,9 @@ export class TableComponent implements OnInit {
   }
 
   getAllFormDoc() {
-    this.http.get("http://52.90.175.233:80/api/form/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/form/list").subscribe((response:any) => {
       this.form_docs = response;
-
+      this.totalLength=response.length
     })
   }
 
@@ -167,7 +169,7 @@ export class TableComponent implements OnInit {
       this.regNumUpColor = "black"
     }
 
-    this.http.get("http://52.90.175.233:80/api/form/orderByRegNum?sort=" + this.down).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderByRegNum?sort=" + this.down).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -183,7 +185,7 @@ export class TableComponent implements OnInit {
       this.regDateDownColor = "white"
       this.regDateUpColor = "black"
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderByRegDate?sort=" + this.rDateDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderByRegDate?sort=" + this.rDateDown).subscribe(res => {
       this.form_docs = res
       console.log(res)
     })
@@ -201,7 +203,7 @@ export class TableComponent implements OnInit {
       this.sendNumDownColor="white"
       this.sendNumUpColor='black'
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderBySendNum?sort=" + this.sendNumDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderBySendNum?sort=" + this.sendNumDown).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -217,7 +219,7 @@ export class TableComponent implements OnInit {
       this.sendDateDownColor='white'
       this.sendDateUpColor='black'
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderBySendDate?sort=" + this.sendDateDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderBySendDate?sort=" + this.sendDateDown).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -233,7 +235,7 @@ export class TableComponent implements OnInit {
       this.deliveryDownColor='white'
       this.deliveryUpColor='black'
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderByDeliveryType?sort=" + this.deliveryDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderByDeliveryType?sort=" + this.deliveryDown).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -248,7 +250,7 @@ export class TableComponent implements OnInit {
       this.correspondentDownColor='white'
       this.correspondentUpColor='black'
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderBySender?sort=" + this.corresDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderBySender?sort=" + this.corresDown).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -263,7 +265,7 @@ export class TableComponent implements OnInit {
       this.themeDownColor="white"
       this.themeUpColor="black"
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderByTheme?sort=" + this.themeDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderByTheme?sort=" + this.themeDown).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -278,7 +280,7 @@ export class TableComponent implements OnInit {
       this.descriptionDownColor='white'
       this.descriptionUpColor='black'
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderByDescription?sort=" + this.descripDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderByDescription?sort=" + this.descripDown).subscribe(res => {
       this.form_docs = res
     })
   }
@@ -293,7 +295,7 @@ export class TableComponent implements OnInit {
       this.expireDownColor='white'
       this.expireUpColor='black'
     }
-    this.http.get("http://52.90.175.233:80/api/form/orderByExpireDate?sort=" + this.expireDown).subscribe(res => {
+    this.http.get("http://18.233.7.60:80/api/form/orderByExpireDate?sort=" + this.expireDown).subscribe(res => {
       this.form_docs = res
     })
   }

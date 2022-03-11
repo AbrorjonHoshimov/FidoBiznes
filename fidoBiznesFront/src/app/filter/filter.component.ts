@@ -37,12 +37,12 @@ export class FilterComponent implements OnInit {
 
 
   getDeliveryTypeList(): void {
-    this.http.get("http://52.90.175.233:80/api/del_type/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/del_type/list").subscribe(response => {
       this.delivery_types = response
     })
   }
   getDocSenderList(): void {
-    this.http.get("http://52.90.175.233:80/api/doc_sender/list").subscribe(response => {
+    this.http.get("http://18.233.7.60:80/api/doc_sender/list").subscribe(response => {
       this.doc_senders = response
     })
   }
@@ -59,7 +59,7 @@ export class FilterComponent implements OnInit {
     this.filter.someReference=description.value
     this.filter.theme=theme.value
 
-    this.http.post("http://52.90.175.233:80/api/form/filter",this.filter).subscribe(res=>{
+    this.http.post("http://18.233.7.60:80/api/form/filter",this.filter).subscribe(res=>{
       this.dialogRef.close(res)
     })
   }

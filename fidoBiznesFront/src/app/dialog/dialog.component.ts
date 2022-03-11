@@ -21,7 +21,7 @@ export class DialogComponent implements OnInit {
   }
 
   delete() {
-    this.http.delete("http://52.90.175.233:80/api/form/" + this.data).subscribe(res => {
+    this.http.delete("http://18.233.7.60:80/api/form/" + this.data).subscribe(res => {
       this.toastr.success("Deleted")
     })
 
