@@ -97,11 +97,12 @@
     </mat-card>
     <mat-card class="card">
       <div class="forFileDiv">
-        <input type="file" id="file">
+        <input type="file" id="file" (change)="fileToServer($event)" >
         <label class="forFileLabel" for="file">
           <mat-icon>save_alt</mat-icon>
           <span style="margin-top: 7px">Faylni tanlang</span></label>
       </div>
+      <p style="text-align: center;font-size: 14px" *ngIf="showFileName">{{filename}}</p>
     </mat-card>
     <mat-card class="card">
       <div style="display: flex;align-items: center;justify-content: center">

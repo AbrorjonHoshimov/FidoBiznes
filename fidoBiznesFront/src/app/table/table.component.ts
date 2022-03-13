@@ -187,7 +187,6 @@ export class TableComponent implements OnInit {
     }
     this.http.get("http://18.233.7.60:80/api/form/orderByRegDate?sort=" + this.rDateDown).subscribe(res => {
       this.form_docs = res
-      console.log(res)
     })
   }
 
@@ -354,7 +353,6 @@ export class TableComponent implements OnInit {
   }
 
   reports(report: HTMLSelectElement) {
-    console.log(report.value)
     if (report.value=='1'||report.value=='2'||report.value==='3'){
       this.router.navigate(['/report/'+report.value])
     }

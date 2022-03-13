@@ -27,7 +27,8 @@ export class EditFormComponent implements OnInit {
   id!: number
   formDoc: any
   formDocument = new Form_Document()
-
+  showFileName=false
+  filename=' '
 
   constructor(private tranlateService: TranslateService, private router: Router, private toastr: ToastrService, private http: HttpClient, private route: ActivatedRoute) {
     this.tranlateService.setDefaultLang(localStorage.getItem('lang') || 'en');
@@ -45,7 +46,6 @@ export class EditFormComponent implements OnInit {
   getDeliveryTypeList(): void {
     this.http.get("http://18.233.7.60:80/api/del_type/list").subscribe(response => {
       this.delivery_types = response
-      console.log(this.delivery_types)
     })
   }
 
@@ -59,6 +59,43 @@ export class EditFormComponent implements OnInit {
     this.http.get("http://18.233.7.60:80/api/form/getOne/" + id).subscribe(respon => {
       this.formDoc = respon
     })
+  }
+
+  fileToServer(event: any) {
+    if (event.target.files[0].size < 1048576) {
+
+      let fileType = event.target.value
+      this.showFileName = true
+      this.filename = event.target.files[0].name + '  ' + ' :  Hajmi = ' + Math.round(event.target.files[0].size / 1024) + ' kb';
+
+      if (fileType.endsWith(".PDF") || fileType.endsWith(".pdf") || fileType.endsWith(".doc") || fileType.endsWith(".docx")) {
+
+        let file = event.target.files[0];
+
+
+        let forFormData = new FormData()
+
+
+        forFormData.append("file", file)
+
+        if (event.target.size < 1048576) {
+          this.http.post("http://18.233.7.60:80/attachment/uploadSytem", forFormData).subscribe(response => {
+            this.attachmentId = response
+            this.toastr.success("yuklandi")
+            event.target.value = ''
+          }, error => {
+            this.toastr.error("Xatolik")
+          })
+        } else {
+          this.toastr.warning("file max 1 MB")
+        }
+      } else {
+        this.toastr.error("file turi noto'gri")
+      }
+
+    } else {
+      this.toastr.error("File Max 1Mb ")
+    }
   }
 
 
@@ -83,7 +120,11 @@ export class EditFormComponent implements OnInit {
     }else {
       this.formDocument.deliveryTypeId = deliveryId.value
     }
-    this.formDocument.attchmentId = this.formDoc.attchmentId
+    if (this.attachmentId==0){
+      this.formDocument.attchmentId = this.formDoc.attchmentId
+    }else{
+      this.formDocument.attchmentId = this.attachmentId
+    }
     if (senderId.value.length===0){
       this.formDocument.docSenderId = this.formDoc.docSenderId
     }else {
@@ -105,4 +146,5 @@ export class EditFormComponent implements OnInit {
     this.router.navigate(['/table'])
     this.toastr.success("Orqa qaytish")
   }
+
 }

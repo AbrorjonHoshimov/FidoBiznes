@@ -28,6 +28,7 @@ import { FilterComponent } from './filter/filter.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ReportComponent } from './report/report.component';
+import {DatePipe} from "@angular/common";
 
 const routes: Routes = [
   {path: '', component: LoginPageComponent},
@@ -87,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     HttpClient,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

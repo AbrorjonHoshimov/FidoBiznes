@@ -3,13 +3,13 @@
     {{'FORM.header'| translate}}
   </mat-card>
   <form [formGroup]="myForm"
-        (ngSubmit)="add(regNum,theme,sendNum,sendDate,expireDate,deliveryId,description,senderId,control,acces)"
+        (ngSubmit)="add()"
         ngNativeValidate="">
     <mat-card class="card">
       <div class="grid-container">
         <div class="inputDiv">
           <p class="label">{{'FORM.correspondent'| translate}}<span class="starIcon">*</span></p>
-          <select name="sender" formControlName="sender" class="input" #senderId required>
+          <select name="sender" formControlName="sender" class="input"  required>
             <option *ngFor="let doc_sender of doc_senders" [value]="doc_sender.id">
               {{doc_sender.name}}
             </option>
@@ -19,19 +19,19 @@
         </div>
         <div class="inputDiv">
           <p class="label">{{'FORM.regnum'| translate}}<span class="starIcon">*</span></p>
-          <input name="regNum" formControlName="regNumber" type="text" class="input" required maxlength="10" #regNum>
+          <input name="regNum" formControlName="regNumber" type="text" class="input" required maxlength="10" >
           <small *ngIf="myForm.get('regNumber')?.invalid&&myForm.get('regNumber')?.touched" class="text-danger">Please
             enter
             number </small>
-          <small *ngIf="isRegNumberExist">{{'FORM.isRegNumExist'| translate}} </small>
+          <small *ngIf="isRegNumberExist" class="text-danger">{{'FORM.isRegNumExist'| translate}} </small>
         </div>
         <div class="inputDiv">
           <p class="label">{{'FORM.regDate'| translate}}<span class="starIcon">*</span></p>
-          <input name="regDate" type="text" class="input" required [value]="todayInput">
+          <input name="regDate" type="text" class="input" formControlName="regDate">
         </div>
         <div class="inputDiv">
           <p class="label">{{'FORM.delivery_type'| translate}}<span class="starIcon">*</span></p>
-          <select name="delivery" class="input" formControlName="delivery" #deliveryId required>
+          <select name="delivery" class="input" formControlName="delivery"  required>
             <option *ngFor="let delivery_type of delivery_types" [value]="delivery_type.id">
               {{delivery_type.name}}
             </option>
@@ -42,7 +42,7 @@
         </div>
         <div class="inputDiv">
           <p class="label">{{'FORM.sendDoc'| translate}}<span class="starIcon">*</span></p>
-          <input name="sendnum" formControlName="sendNumber" type="text" class="input" required maxlength="10" #sendNum>
+          <input name="sendnum" formControlName="sendNumber" type="text" class="input" required maxlength="10" >
           <small *ngIf="myForm.get('sendNumber')?.invalid&&myForm.get('sendNumber')?.touched" class="text-danger">Please
             enter number </small>
         </div>
@@ -50,7 +50,7 @@
           <p class="label">{{'FORM.sendDate'| translate}}<span class="starIcon">*</span></p>
           <div class="datePickerSend">
             <input matInput [matDatepicker]="send" name="sendDate" formControlName="sendDate" class="datePickerinput"
-                   #sendDate required>
+                    required>
             <mat-datepicker-toggle [for]="send" class="dateIcon"></mat-datepicker-toggle>
             <mat-datepicker #send></mat-datepicker>
           </div>
@@ -66,14 +66,14 @@
       <div class="checkboxDivCard ">
         <div style="width: 100%">
           <p class="label">{{'FORM.theme'| translate}}<span class="starIcon">*</span></p>
-          <input name="them" formControlName="theme" type="text" class="input" maxlength="100" required #theme>
+          <input name="them" formControlName="theme" type="text" class="input" maxlength="100" required >
           <small *ngIf="myForm.get('theme')?.invalid&&myForm.get('theme')?.touched" class="text-danger">Please enter
             word </small>
         </div>
         <div >
           <p class="label">{{'FORM.access'| translate}}</p>
           <div class="chekbox">
-            <input name="acces" type="checkbox" id="switch" class="input" #acces/>
+            <input name="acces" type="checkbox"  formControlName="access" id="switch" class="input" />
             <label class="switch" for="switch">
               <span></span>
             </label>
@@ -82,7 +82,7 @@
         <div style="width: 100%">
           <p class="label">{{'FORM.due'| translate}}</p>
           <div class="datePickerExpire">
-            <input matInput [matDatepicker]="expire" class="datePickerinput" #expireDate>
+            <input matInput [matDatepicker]="expire" formControlName="expireDate" class="datePickerinput" >
             <mat-datepicker-toggle matSuffix [for]="expire" class="dateIcon"></mat-datepicker-toggle>
             <mat-datepicker #expire></mat-datepicker>
           </div>
@@ -90,7 +90,7 @@
         <div style="width: 40%">
           <p class="label">{{'FORM.control'| translate}}</p>
           <div class="chekbox">
-            <input name="control" type="checkbox" id="switch2" class="input" #control/>
+            <input name="control" type="checkbox" formControlName="control" id="switch2" class="input" />
             <label class="switch" for="switch2">
               <span></span>
             </label>
@@ -98,9 +98,9 @@
         </div>
       </div>
       <div style="margin-top: 1%">
-        <label class="label" for="textarea">{{'FORM.description'| translate}}</label>
-        <textarea name="desc" class="textArea" id="textarea" maxlength="1000"
-                  #description></textarea>
+        <label class="label"  for="textarea">{{'FORM.description'| translate}}</label>
+        <textarea name="desc" formControlName="descrip"  class="textArea" id="textarea" maxlength="1000"
+                  ></textarea>
       </div>
     </mat-card>
 

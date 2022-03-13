@@ -8,6 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {MAT_DATE_FORMATS} from "@angular/material/core";
 import {removeSpaces} from "../service/service";
 import {dateParse} from "../service/dateParse";
+import {DatePipe} from "@angular/common";
 
 export const MY_FORMATS = {
   parse: {
@@ -48,7 +49,7 @@ export class FormDocumentComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private toastr: ToastrService, private http: HttpClient, private tranlateService: TranslateService) {
+  constructor(private datePipe:DatePipe,private router: Router, private toastr: ToastrService, private http: HttpClient, private tranlateService: TranslateService) {
     this.tranlateService.setDefaultLang(localStorage.getItem('lang') || 'en');
     this.tranlateService.use(localStorage.getItem('lang') || 'en')
   }
@@ -56,17 +57,23 @@ export class FormDocumentComponent implements OnInit {
   myForm!: FormGroup
 
   ngOnInit(): void {
-
+    console.log(this.datePipe.transform(new Date(),'yyyy-MM-dd'));
     this.getDocSenderList()
     this.getDeliveryTypeList()
     this.getAllFormDoc()
     this.myForm = new FormGroup({
       'regNumber': new FormControl(null, [Validators.required, removeSpaces]),
+      'regDate': new FormControl(this.todayInput),
       'sendNumber': new FormControl(null, [Validators.required, removeSpaces]),
       'sendDate': new FormControl(null, Validators.required),
       'theme': new FormControl(null, [Validators.required, removeSpaces]),
       'delivery': new FormControl(null, [Validators.required, removeSpaces]),
-      'sender': new FormControl(null, [Validators.required, removeSpaces])
+      'sender': new FormControl(null, [Validators.required, removeSpaces]),
+      'access':new FormControl(false),
+      'expireDate':new FormControl(null),
+      'descrip':new FormControl(null,[removeSpaces]),
+      'control':new FormControl(false)
+
 
     })
   }
@@ -74,7 +81,6 @@ export class FormDocumentComponent implements OnInit {
   getDeliveryTypeList(): void {
     this.http.get("http://18.233.7.60:80/api/del_type/list").subscribe(response => {
       this.delivery_types = response
-      console.log(this.delivery_types)
     })
   }
 
@@ -116,7 +122,6 @@ export class FormDocumentComponent implements OnInit {
         if (event.target.size < 1048576) {
           this.http.post("http://18.233.7.60:80/attachment/uploadSytem", forFormData).subscribe(response => {
             this.attachmentId = response
-            console.log(response)
             this.toastr.success("yuklandi")
             event.target.value = ''
           }, error => {
@@ -134,41 +139,37 @@ export class FormDocumentComponent implements OnInit {
     }
   }
 
-  add(regNum: HTMLInputElement, theme: HTMLInputElement, sendNum: HTMLInputElement, sendDate: HTMLInputElement, expireDate: HTMLInputElement, deliveryId: HTMLSelectElement, description: HTMLTextAreaElement, senderId: HTMLSelectElement, control: HTMLInputElement, acces: HTMLInputElement) {
-
+  add() {
     for (let i = 0; i < this.form_docs.length; i++) {
-      if (this.form_docs[i].regNum===regNum.value){
+      if (this.form_docs[i].regNum===this.myForm.value.regNumber){
         this.existRegNum++
       }
     }
 
     if (this.existRegNum<=0){
-
-        if (expireDate.value.length == 0) {
-          this.formDocument.expireDate = expireDate.value
+        if (this.myForm.value.expireDate == null) {
+          this.formDocument.expireDate = ''
         } else {
-          this.formDocument.expireDate = dateParse(expireDate.value)
+          let expire = this.datePipe.transform(this.myForm.value.expireDate,'yyyy-MM-dd')
+          this.formDocument.expireDate = expire!
         }
-        let send = dateParse(sendDate.value)
-
-
-        console.log(expireDate.value)
-        if (this.todayIs >= send ) {
-          this.formDocument.access = acces.checked,
-          this.formDocument.cardControl = control.checked,
-          this.formDocument.deliveryTypeId = deliveryId.value
-          this.formDocument.docSenderId = senderId.value
-          this.formDocument.theme = theme.value
-          this.formDocument.someReference = description.value
-          this.formDocument.regNum = regNum.value
+        let send = this.datePipe.transform(this.myForm.value.sendDate,'yyyy-MM-dd')
+        if (this.todayIs >= send!) {
+          this.formDocument.access = this.myForm.value.access
+          this.formDocument.cardControl = this.myForm.value.control
+          this.formDocument.deliveryTypeId =this.myForm.value.delivery
+          this.formDocument.docSenderId = this.myForm.value.sender
+          this.formDocument.theme = this.myForm.value.theme
+          this.formDocument.someReference = this.myForm.value.descrip
+          this.formDocument.regNum = this.myForm.value.regNumber
           if (this.attachmentId != null) {
             this.formDocument.attchmentId = this.attachmentId
           } else {
             this.formDocument.attchmentId = 0
           }
-          this.formDocument.sendDocNum = sendNum.value
+          this.formDocument.sendDocNum = this.myForm.value.sendNumber
           this.formDocument.regDate = this.todayIs
-          this.formDocument.sendDate = send
+          this.formDocument.sendDate = send!
           this.sendDateError=false;
           this.isRegNumberExist=false;
           this.http.post("http://18.233.7.60:80/api/form/add", this.formDocument).subscribe((response: any) => {

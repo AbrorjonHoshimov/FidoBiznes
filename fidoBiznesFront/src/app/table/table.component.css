@@ -16,6 +16,10 @@
   justify-content: space-between;
 
 }
+.reportDiv{
+  display: flex;
+  gap: 15px;
+}
 
 .btn {
   font-weight: bold;
@@ -62,17 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 .table-row:focus{
   outline: none;
 }
-/*.table-row:hover{*/
-/*  background: #EEEEEE;*/
-/*}*/
 
-/*.table-row:nth-of-type(odd) {*/
-/*  background: #EEEEEE;*/
-
-/*}*/
-/*.table-row:nth-of-type(odd):focus {*/
-/*  background: #bed5d5;*/
-/*}*/
 
 .table-data, .header__item {
   flex: 1 1 2%;
@@ -96,24 +90,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/*.filter__link {*/
-/*  color: white;*/
-/*  text-decoration: none;*/
-/*  position: relative;*/
-/*  display: inline-block;*/
-/*  padding-left: 24px;*/
-/*  padding-right: 24px;*/
-/*}*/
-
-/*.filter__linkl::after {*/
-/*  content: '';*/
-/*  position: absolute;*/
-/*  right: -18px;*/
-/*  color: white;*/
-/*  font-size: 12px;*/
-/*  top: 50%;*/
-/*  transform: translateY(-50%);*/
-/*}*/
 
 
 .headNum {
@@ -180,9 +156,6 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-
-
-
 .tableIconDiv{
   height: 18px;
   width: 18px;
@@ -240,5 +213,27 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-
-
+@media screen and (max-width: 1000px) {
+  .header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+    .report{
+      width: 200px;
+    }
+}
+@media screen and (max-width: 520px) {
+  .header{
+    display: grid;
+    grid-template-columns: 1fr ;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .reportDiv{
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}

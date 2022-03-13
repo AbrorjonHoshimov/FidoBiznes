@@ -16,9 +16,8 @@
         <option value="uz" [selected]="language=='uz'">O'zbekcha</option>
       </select>
     </div>
-    <div style="display: flex;gap: 15px">
+    <div class="reportDiv">
       <p style="font-weight: bold">{{'TABLE.report'|translate}} </p>
-
       <select class="report" matTooltip="{{'TABLE.report'|translate }}" (change)="reports(report)" #report
               matTooltipShowDelay="400"
               matTooltipHideDelay="400">
@@ -126,7 +125,7 @@
       </div>
       <div class="table-content">
         <div
-          *ngFor="let form of form_docs  | paginate: { itemsPerPage: 5, currentPage: page,totalItems:totalLength} let i = index  "
+          *ngFor="let form of form_docs  | paginate: { itemsPerPage: 7, currentPage: page,totalItems:totalLength} let i = index  "
           class="table-row"
           [class.activeRow]="i==highlightRow"
           tabindex="999"
