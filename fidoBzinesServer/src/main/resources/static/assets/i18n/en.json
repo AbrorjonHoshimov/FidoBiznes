@@ -50,7 +50,9 @@
     "description": "Description",
     "file": "File",
     "save": "Save",
-    "back": "Back"
+    "back": "Back",
+    "sendDateError": "Send Date error",
+    "isRegNumExist": "Registration number already exist"
   },
   "DIO": {
     "header":"Delete",

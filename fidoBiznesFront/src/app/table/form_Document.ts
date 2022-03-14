@@ -10,5 +10,5 @@ export class Form_Document {
   theme = ''
   deliveryTypeId = ''
   docSenderId = ''
-  attchmentId = 0
+  attchmentId :number|null=0
 }

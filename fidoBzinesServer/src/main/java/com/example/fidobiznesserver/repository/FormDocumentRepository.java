@@ -57,11 +57,16 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
     }
 
     public List<FormDocInfo> list() {
-        return jdbcTemplate.query(query, rowMapper);
+
+        return jdbcTemplate.query(query+" order by f.id", rowMapper);
     }
 
     @Override
     public ApiResponse create(FormDoc formDoc) {
+
+        String query="select max(id) from form_documents";
+        Integer maxId = jdbcTemplate.queryForObject(query, Integer.class);
+
 
         Date regDate = formDoc.getRegDate();
         Calendar calendar = Calendar.getInstance();
@@ -83,7 +88,7 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
                             date, formDoc.getSendDate(), formDoc.getSendDocNum(), formDoc.getSomeReference(),
                             formDoc.getTheme(), formDoc.getDocSenderId());
                     if (insert == 1) {
-                        return new ApiResponse(true, "saqlandi");
+                        return new ApiResponse(true, "saqlandi",maxId+1);
                     } else {
                         return new ApiResponse(false, "xatolik");
                     }
@@ -96,7 +101,7 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
                             date, formDoc.getSendDate(), formDoc.getSendDocNum(), formDoc.getSomeReference(),
                             formDoc.getTheme(), formDoc.getDeliveryTypeId(), formDoc.getDocSenderId());
                     if (insert == 1) {
-                        return new ApiResponse(true, "saqlandi");
+                        return new ApiResponse(true, "saqlandi",maxId+1);
                     } else {
                         return new ApiResponse(false, "xatolik");
                     }
@@ -108,7 +113,7 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
                             date, formDoc.getSendDate(), formDoc.getSendDocNum(), formDoc.getSomeReference(),
                             formDoc.getTheme(),  formDoc.getDocSenderId(),formDoc.getAttchmentId());
                     if (insert == 1) {
-                        return new ApiResponse(true, "saqlandi");
+                        return new ApiResponse(true, "saqlandi",maxId+1);
                     } else {
                         return new ApiResponse(false, "xatolik");
                     }
@@ -121,7 +126,7 @@ public class FormDocumentRepository implements FormDocumentDao<FormDoc> {
                             date, formDoc.getSendDate(), formDoc.getSendDocNum(), formDoc.getSomeReference(),
                             formDoc.getTheme(), formDoc.getDeliveryTypeId(), formDoc.getDocSenderId(),formDoc.getAttchmentId());
                     if (insert == 1) {
-                        return new ApiResponse(true, "saqlandi");
+                        return new ApiResponse(true, "saqlandi",maxId+1);
                     } else {
                         return new ApiResponse(false, "xatolik");
                     }

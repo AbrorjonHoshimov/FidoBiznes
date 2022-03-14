@@ -49,7 +49,10 @@
     "due": "Muddati",
     "description": "Izoh",
     "save": "Saqlash",
-    "back": "Orqaga"
+    "back": "Orqaga",
+    "sendDateError": "Jo'natish sanasida xatolik",
+    "isRegNumExist": "Bunday ro'yxat raqami avvaldan mavjud"
+
   },
   "DIO":{
   "header":"O'chirish",

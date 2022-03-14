@@ -46,6 +46,8 @@ export class FormDocumentComponent implements OnInit {
   existRegNum=0
   sendDateError=false;
   isRegNumberExist=false;
+  saveId=0
+  updateOrSave=false
 
 
 
@@ -57,7 +59,6 @@ export class FormDocumentComponent implements OnInit {
   myForm!: FormGroup
 
   ngOnInit(): void {
-    console.log(this.datePipe.transform(new Date(),'yyyy-MM-dd'));
     this.getDocSenderList()
     this.getDeliveryTypeList()
     this.getAllFormDoc()
@@ -120,7 +121,7 @@ export class FormDocumentComponent implements OnInit {
 
 
         if (event.target.size < 1048576) {
-          this.http.post("http://18.233.7.60:80/attachment/uploadSytem", forFormData).subscribe(response => {
+          this.http.post("http://18.233.7.60:80/attachment/uploadSytem", forFormData).subscribe((response) => {
             this.attachmentId = response
             this.toastr.success("yuklandi")
             event.target.value = ''
@@ -140,6 +141,8 @@ export class FormDocumentComponent implements OnInit {
   }
 
   add() {
+
+    if (!this.updateOrSave){
     for (let i = 0; i < this.form_docs.length; i++) {
       if (this.form_docs[i].regNum===this.myForm.value.regNumber){
         this.existRegNum++
@@ -174,7 +177,8 @@ export class FormDocumentComponent implements OnInit {
           this.isRegNumberExist=false;
           this.http.post("http://18.233.7.60:80/api/form/add", this.formDocument).subscribe((response: any) => {
             this.toastr.success(response.message)
-            this.router.navigate(['/table'])
+            this.saveId=response.saveId
+            this.updateOrSave=true
           }, error => {
             this.toastr.error(error.message)
           })
@@ -184,6 +188,53 @@ export class FormDocumentComponent implements OnInit {
     }else {
      this.isRegNumberExist=true
       this.existRegNum=0
+    }
+  }else {
+      for (let i = 0; i < this.form_docs.length; i++) {
+        if (this.form_docs[i].regNum===this.myForm.value.regNumber){
+          this.existRegNum++
+        }
+      }
+
+      if (this.existRegNum<=0){
+        if (this.myForm.value.expireDate == null) {
+          this.formDocument.expireDate = ''
+        } else {
+          let expire = this.datePipe.transform(this.myForm.value.expireDate,'yyyy-MM-dd')
+          this.formDocument.expireDate = expire!
+        }
+        let send = this.datePipe.transform(this.myForm.value.sendDate,'yyyy-MM-dd')
+        if (this.todayIs >= send!) {
+          this.formDocument.access = this.myForm.value.access
+          this.formDocument.cardControl = this.myForm.value.control
+          this.formDocument.deliveryTypeId =this.myForm.value.delivery
+          this.formDocument.docSenderId = this.myForm.value.sender
+          this.formDocument.theme = this.myForm.value.theme
+          this.formDocument.someReference = this.myForm.value.descrip
+          this.formDocument.regNum = this.myForm.value.regNumber
+          if (this.attachmentId != null) {
+            this.formDocument.attchmentId = this.attachmentId
+          } else {
+            this.formDocument.attchmentId = null
+          }
+          this.formDocument.sendDocNum = this.myForm.value.sendNumber
+          this.formDocument.regDate = this.todayIs
+          this.formDocument.sendDate = send!
+          this.sendDateError=false;
+          this.isRegNumberExist=false;
+          this.http.put("http://18.233.7.60:80/api/form/"+this.saveId, this.formDocument).subscribe((response: any) => {
+            this.toastr.success(response.message)
+            this.saveId=response.saveId
+          }, error => {
+            this.toastr.error(error.message)
+          })
+        } else {
+          this.sendDateError=true;
+        }
+      }else {
+        this.isRegNumberExist=true
+        this.existRegNum=0
+      }
     }
   }
 
